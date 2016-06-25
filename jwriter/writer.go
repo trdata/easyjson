@@ -5,7 +5,7 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/mailru/easyjson/buffer"
+	"github.com/trdata/easyjson/buffer"
 )
 
 // Writer is a JSON writer.

@@ -13,9 +13,9 @@ import (
 	"path/filepath"
 )
 
-const genPackage = "github.com/mailru/easyjson/gen"
-const pkgWriter = "github.com/mailru/easyjson/jwriter"
-const pkgLexer = "github.com/mailru/easyjson/jlexer"
+const genPackage = "github.com/trdata/easyjson/gen"
+const pkgWriter = "github.com/trdata/easyjson/jwriter"
+const pkgLexer = "github.com/trdata/easyjson/jlexer"
 
 type Generator struct {
 	PkgPath, PkgName string
@@ -24,9 +24,9 @@ type Generator struct {
 	NoStdMarshalers bool
 	SnakeCase       bool
 	OmitEmpty       bool
-
-	OutName   string
-	BuildTags string
+	Required        bool
+	OutName         string
+	BuildTags       string
 
 	StubsOnly  bool
 	LeaveTemps bool
@@ -105,6 +105,9 @@ func (g *Generator) writeMain() (path string, err error) {
 	}
 	if g.OmitEmpty {
 		fmt.Fprintln(f, "  g.OmitEmpty()")
+	}
+	if g.Required {
+		fmt.Fprintln(f, "  g.Required()")
 	}
 	if g.NoStdMarshalers {
 		fmt.Fprintln(f, "  g.NoStdMarshalers()")

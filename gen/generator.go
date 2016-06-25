@@ -12,8 +12,8 @@ import (
 	"unicode"
 )
 
-const pkgWriter = "github.com/mailru/easyjson/jwriter"
-const pkgLexer = "github.com/mailru/easyjson/jlexer"
+const pkgWriter = "github.com/trdata/easyjson/jwriter"
+const pkgLexer = "github.com/trdata/easyjson/jlexer"
 
 // FieldNamer defines a policy for generating names for struct fields.
 type FieldNamer interface {
@@ -33,6 +33,7 @@ type Generator struct {
 
 	noStdMarshalers bool
 	omitEmpty       bool
+	required        bool
 	namer           FieldNamer
 
 	// package path to local alias map for tracking imports
@@ -105,6 +106,10 @@ func (g *Generator) NoStdMarshalers() {
 // OmitEmpty triggers `json=",omitempty"` behaviour by default.
 func (g *Generator) OmitEmpty() {
 	g.omitEmpty = true
+}
+
+func (g *Generator) Required() {
+	g.required = true
 }
 
 // addTypes requests to generate en-/decoding functions for the given type.

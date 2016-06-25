@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mailru/easyjson"
+	"github.com/trdata/easyjson"
 )
 
 func (g *Generator) getStructEncoderName(t reflect.Type) string {
@@ -53,6 +53,7 @@ type fieldTags struct {
 	noOmitEmpty bool
 	asString    bool
 	required    bool
+	noRequired  bool
 }
 
 // parseFieldTags parses the json field tag into a structure.
@@ -69,6 +70,8 @@ func parseFieldTags(f reflect.StructField) fieldTags {
 			ret.omitEmpty = true
 		case s == "!omitempty":
 			ret.noOmitEmpty = true
+		case s == "!required":
+			ret.noRequired = true
 		case s == "string":
 			ret.asString = true
 		case s == "required":
